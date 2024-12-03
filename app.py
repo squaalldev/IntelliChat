@@ -2,6 +2,7 @@ import streamlit as st
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers.string import StrOutputParser
+from langchain_community.callbacks.streamlit import StreamlitCallbackHandler
 import os
 from dotenv import load_dotenv
 
@@ -14,12 +15,15 @@ prompt_template = ChatPromptTemplate.from_messages([
     ("user", "{question}")
 ])
 
+
+
 # Initialize the model (LLaMA 3.1-8B)
 model = ChatGroq(model="llama-3.1-8b-instant", streaming=True, groq_api_key=os.getenv("GROQ_API_KEY"))
 
 # Set up the output parser
 parser = StrOutputParser()
 
+callback_handler = StreamlitCallbackHandler(st.container())
 # Chain: Connecting the prompt template, model, and parser
 chain = prompt_template | model | parser
 
