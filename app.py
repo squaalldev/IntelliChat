@@ -4,7 +4,7 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages.human import HumanMessage
 from langchain_groq import ChatGroq
-from langchain.prompts import ChatPromptTemplate
+from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers.string import StrOutputParser
 from langchain_community.callbacks.streamlit import StreamlitCallbackHandler
 from dotenv import load_dotenv
@@ -25,12 +25,32 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
     return store[session_id]
 
 # Wrap the model with chat history management
-with_message_history = RunnableWithMessageHistory(model, get_session_history)
 
 # Set up the prompt template
 prompt_template = ChatPromptTemplate.from_messages([
     ("system", "You are a helpful assistant. Act as a question answering chatbot.")
 ])
+
+contextualize_q_system_prompt=(
+            "Given a chat history and the latest user question"
+            "which might reference context in the chat history, "
+            "formulate a standalone question which can be understood "
+            "without the chat history. Do NOT answer the question, "
+            "just reformulate it if needed and otherwise return it as is."
+        )
+contextualize_q_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", contextualize_q_system_prompt),
+            MessagesPlaceholder("chat_history"),
+            ("human", "{input}"),
+        ]
+    )
+
+with_message_history = RunnableWithMessageHistory(model,
+                                                  get_session_history,
+                                                  history_messages_key="chat_history",
+                                                  output_messages_key="answer")
+
 
 # Streamlit UI Setup
 st.title("QA Chatbot")
@@ -59,11 +79,11 @@ if user_input:
     config = {"configurable": {"session_id": session_id}}
 
     # Generate response using the model and history
-    response = with_message_history.invoke([HumanMessage(content=user_input)], config=config)
+    response = with_message_history.invoke({"input":user_input,"chat_history":st.session_state['messages']}, config=config)
 
     # Add assistant's response to the chat history
     st.session_state["messages"].append({"role": "assistant", "content": response.content})
 
     # Display the assistant's response
     with st.chat_message("assistant"):
-        st.write(response.content)
+        st.write(response['answer'])
