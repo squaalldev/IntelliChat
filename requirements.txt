@@ -1,5 +1,7 @@
 langchain
 langchain_community
+langchain_core
+google-search-results
 langchain-groq
 streamlit
 python-dotenv
