@@ -19,11 +19,15 @@ st.title("Chatbot with Persistent History")
 # Initialize session state for messages and history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = ChatMessageHistory()
-    
+
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "assistant", "content": "Hi, I'm your assistant. How can I help you today?"}
     ]
+
+# Define a function to retrieve the session-specific chat history
+def get_chat_history(session_id: str) -> BaseChatMessageHistory:
+    return st.session_state.chat_history
 
 # Define the prompt template
 generic_template = ChatPromptTemplate.from_messages(
@@ -37,7 +41,7 @@ generic_template = ChatPromptTemplate.from_messages(
 chain = generic_template | model
 with_message_history = RunnableWithMessageHistory(
     chain,
-    lambda session_id: st.session_state.chat_history,  # Use session-specific history
+    get_chat_history,
     input_messages_key="messages"
 )
 
