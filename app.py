@@ -3,9 +3,9 @@ import streamlit as st
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_core.messages.human import HumanMessage
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
+import time
 from dotenv import load_dotenv
 
 # Loading environment variables to securely manage sensitive information (e.g., API keys)
@@ -123,19 +123,29 @@ for msg in st.session_state.messages:
 # Capturing user input through the chat input box in Streamlit
 user_input = st.chat_input("Ask a question:")
 
+
 if user_input:
-    # Adding the user's input to the chat history and displaying it
+    # Append the user's input to the message history
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
-        st.write(user_input)  # Display the user's message in the UI
+        st.write(user_input)
 
-    # Generating the assistant's response using the chain and managing session ID
+    # Create a placeholder for the assistant's response
+    assistant_message_placeholder = st.empty()
+
+    # Generate the assistant's response using the chain and manage session ID
     response = with_message_history.invoke(
         {"messages": [{"role": msg["role"], "content": msg["content"]} for msg in st.session_state.messages]},
-        config={"configurable": {"session_id": "default_session"}}  # Assigning a session ID for context tracking
+        config={"configurable": {"session_id": "default_session"}}  # Assigning session ID for context
     )
 
-    # Adding the assistant's response to the chat history and displaying it
-    st.session_state.messages.append({"role": "assistant", "content": response.content})
-    with st.chat_message("assistant"):
-        st.write(response.content)  # Render the assistant's response in the UI
+    # Simulate streaming by revealing the response in chunks
+    full_response = response.content
+    chunk_size = 100  # You can adjust this to control how much text is revealed at once
+    for i in range(0, len(full_response), chunk_size):
+        # Update the assistant's message in the placeholder
+        assistant_message_placeholder.markdown(full_response[i:i + chunk_size])
+        time.sleep(0.2)  # Simulate typing delay (adjust as needed)
+
+    # Once the full response is displayed, append the assistant's message to history
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
