@@ -130,22 +130,39 @@ if user_input:
     with st.chat_message("user"):
         st.write(user_input)
 
-    # Create a placeholder for the assistant's response
-    assistant_message_placeholder = st.empty()
-
+    # Display a placeholder for the assistant's response
+    assistant_message_placeholder = st.chat_message("assistant")
+    assistant_message_placeholder.markdown("**Assistant is typing...**")  # Initial placeholder text
+    
     # Generate the assistant's response using the chain and manage session ID
     response = with_message_history.invoke(
         {"messages": [{"role": msg["role"], "content": msg["content"]} for msg in st.session_state.messages]},
         config={"configurable": {"session_id": "default_session"}}  # Assigning session ID for context
     )
-
-    # Simulate streaming by revealing the response in chunks
+    
+    # Simulate streaming by updating the message incrementally
     full_response = response.content
-    chunk_size = 100  # You can adjust this to control how much text is revealed at once
-    for i in range(0, len(full_response), chunk_size):
-        # Update the assistant's message in the placeholder
-        assistant_message_placeholder.markdown(full_response[i:i + chunk_size])
-        time.sleep(0.2)  # Simulate typing delay (adjust as needed)
+    for i in range(1, len(full_response) + 1):
+        # Update the placeholder incrementally
+        assistant_message_placeholder.markdown(full_response[:i])
+        time.sleep(0.05)  # Simulate typing delay (adjust as needed)
 
     # Once the full response is displayed, append the assistant's message to history
     st.session_state.messages.append({"role": "assistant", "content": full_response})
+if user_input:
+    # Adding the user's input to the chat history and displaying it
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.write(user_input)  # Display the user's message in the UI
+
+    # Generating the assistant's response using the chain and managing session ID
+    response = with_message_history.invoke(
+        {"messages": [{"role": msg["role"], "content": msg["content"]} for msg in st.session_state.messages]},
+        config={"configurable": {"session_id": "default_session"}}  # Assigning a session ID for context tracking
+    )
+
+
+    # Adding the assistant's response to the chat history and displaying it
+    st.session_state.messages.append({"role": "assistant", "content": response.content})
+    with st.chat_message("assistant"):
+        st.write(response.content)  # Render the assistant's response in the UI
