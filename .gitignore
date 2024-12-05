@@ -1,4 +1,2 @@
 *.env
 qavenv/
-*.ipynb
-temp.py
