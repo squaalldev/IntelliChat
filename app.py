@@ -54,6 +54,7 @@ for msg in st.session_state.messages:
 user_input = st.chat_input("Ask a question:")
 
 if user_input:
+    
     # Append user message to history
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
