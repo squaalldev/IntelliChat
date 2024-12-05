@@ -7,7 +7,6 @@ from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 import os 
 
-
 model_dict={"LLaMA 3.1-8B":"llama-3.1-8b-instant","Gemma2 9B":"gemma2-9b-it","Mixtral":"mixtral-8x7b-32768"}
 
 # Setting up sidebar
