@@ -3,20 +3,27 @@ import streamlit as st
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_core.messages.human import HumanMessage
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from dotenv import load_dotenv
+import os 
 
-# Loading environment variables to securely manage sensitive information (e.g., API keys)
-load_dotenv()
 
 model_dict={"LLaMA 3.1-8B":"llama-3.1-8b-instant","Gemma2 9B":"gemma2-9b-it","Mixtral":"mixtral-8x7b-32768"}
 
 # Setting up sidebar
 with st.sidebar:
+    
+    with st.expander("**About Chatbot**",icon="🤖"):
+        st.write(
+            "This chatbot is powered by advanced language models, designed to assist users by answering questions and providing helpful responses. "
+            "It is optimized for a wide range of queries and offers dynamic conversation management with message history, enabling more personalized interactions. 📚"
+        )
+        st.write(
+            "The chatbot uses cutting-edge AI models for efficient and accurate communication, with real-time updates, ensuring a seamless experience. "
+            "Whether you are looking for simple answers or more detailed insights, this chatbot is designed to meet your needs. 💡"
+        )
 
-    with st.expander("Model Customization"):
+    with st.expander("**Model Customization**",icon="🛠️"):
     # Sidebar for model customization
         # Model type selection
         model_type = st.selectbox(
@@ -55,30 +62,37 @@ with st.sidebar:
             0.7,
             help="Controls the creativity of the model's responses. Higher values (closer to 1.0) produce more creative and diverse outputs, while lower values (closer to 0.0) result in more focused and deterministic responses."
         )
+        max_tokens = st.slider(
+        "**Max Tokens**",
+        1,
+        2048,
+        512,  
+        help="Controls the maximum number of tokens the model can generate in its response. Higher values allow for longer responses."
+    )
 
-        # Top P control (nucleus sampling)
-        top_p = st.slider(
-            "**Top P**",
-            0.0,
-            1.0,
-            0.9,
-            help="Controls the diversity of the output by focusing on the most probable words (nucleus sampling). Higher values allow for more diversity, while lower values make the model more conservative in generating responses."
-        )
+    with st.expander("Contact me"):
+        st.markdown("""
+        <div>  
+            <a href="mailto:miteshgupta2711@gmail.com" target="blank">
+                <img  src="https://github.com/tandpfun/skill-icons/blob/main/icons/Gmail-Dark.svg" alt="gmail" height="40" width="40" />
+            </a><br>
+            <a href="https://linkedin.com/in/mitesh-gupta" target="blank">
+                <img  src="https://github.com/tandpfun/skill-icons/blob/main/icons/LinkedIn.svg" alt="mitesh-gupta" height="40" width="40" />
+            </a><br>
+            <a href="https://twitter.com/mg_mitesh" target="blank">
+                <img  src="https://github.com/miteshgupta07/miteshgupta07/assets/111682782/2202cde1-7b76-42d0-a331-d77e8bc5e434" alt="mg_mitesh" height="40" width="40" />
+            </a><br>
+            <a href="https://instagram.com/mg_mitesh_gupta" target="blank">
+                <img  src="https://github.com/tandpfun/skill-icons/blob/main/icons/Instagram.svg" alt="mg_mitesh_gupta" height="40" width="40" />
+            </a><br>
+        </div>
+        """, unsafe_allow_html=True)
 
-        # Top K control
-        top_k = st.slider(
-            "**Top K**",
-            1,
-            100,
-            50,
-            help="Controls the number of highest probability tokens to consider during generation. A higher value results in more diversity, while a lower value restricts the model to more focused outputs."
-        )
-    with st.expander("File Uploader"):
-        uploaded_file=st.file_uploader("Upload a document a ask Question related to it",type=["pdf","docx"])
 
 selected_model=model_dict[model_type]
+
 # Initializing the language model (Llama 3.1) with streaming support for real-time responses
-model = ChatGroq(model=selected_model, temperature=temperature, top_p=top_p, streaming=True)
+model = ChatGroq(model=selected_model, api_key=os.getenv("GROQ_API_KEY"),temperature=temperature,max_tokens=max_tokens, streaming=True)
 
 # Setting up the Streamlit interface by defining the app title
 st.title("Chatbot with Persistent History")
