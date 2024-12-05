@@ -1,11 +1,51 @@
 import streamlit as st
 
-with st.expander("**About Chatbot**",icon="🤖"):
-        st.write(
-            "This chatbot is powered by advanced language models, designed to assist users by answering questions and providing helpful responses. "
-            "It is optimized for a wide range of queries and offers dynamic conversation management with message history, enabling more personalized interactions. 📚"
-        )
-        st.write(
-            "The chatbot uses cutting-edge AI models for efficient and accurate communication, with real-time updates, ensuring a seamless experience. "
-            "Whether you are looking for simple answers or more detailed insights, this chatbot is designed to meet your needs. 💡"
-        )
+# Setting the title for the page
+st.title("About the Chatbot")
+
+# Introduction Section
+st.header("Introduction")
+st.write("""
+This chatbot is a powerful tool designed to assist users with general queries. 
+It uses state-of-the-art conversational AI models to provide accurate and context-aware responses.
+The chatbot is equipped with a persistent history feature to maintain the flow of the conversation and ensure a seamless user experience.
+""")
+
+# Purpose Section
+st.header("Purpose")
+st.write("""
+The main purpose of this chatbot is to:
+- Offer a conversational interface for interacting with advanced language models.
+- Enable users to ask questions.
+- Provide a platform for exploring the capabilities of cutting-edge AI models.
+""")
+
+# Technologies Used Section
+st.header("Technologies Used")
+st.write("""
+The chatbot is built using the following technologies:
+- **Streamlit**: To create a simple yet interactive user interface.
+- **ChatGroq**: For utilizing advanced conversational AI models.
+- **LangChain**: For managing chat history and prompt templates.
+- **Python**: As the backbone programming language for logic and integrations.
+- **Groq Models**: To deliver precise, creative, and contextually relevant responses.
+""")
+
+# Features Section
+st.header("Key Features")
+st.markdown("""
+- **Multi-Model Support**: Choose from different models (e.g., LLaMA, Gemma2, Mixtral).
+- **Adjustable Parameters**: Fine-tune the chatbot's behavior by customizing temperature and max tokens.
+- **Persistent Chat History**: Maintain the context of the conversation across queries.
+""")
+
+# Benefits Section
+st.header("Benefits")
+st.write("""
+This chatbot provides:
+- Easy interaction with sophisticated AI systems.
+- A user-friendly interface for both general queries.
+""")
+
+# Closing Section
+st.write("This chatbot is continually evolving to provide enhanced features and better support for its users. Explore its capabilities and enjoy the experience!")
