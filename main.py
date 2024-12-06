@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.logo("assets/logo.jpg",size="large")
+st.logo("assets\logo.jpg",size="large")
 
 app_page=st.Page(page="views/app.py",
                  title="Chat",
