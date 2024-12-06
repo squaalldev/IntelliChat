@@ -98,7 +98,7 @@ model = ChatGroq(
 
 # Setting up the main Streamlit interface and initializing the chatbot UI
 st.title("AskGenie 🤖")
-st.write("Your intelligent assistant with persistent conversation history, ready to answer your queries!")
+st.write("Your intelligent assistant developed by Mitesh😎, ready to answer your queries!")
 
 
 # Initializing session state variables for chat history and user-assistant messages
@@ -115,7 +115,7 @@ def get_chat_history(session_id: str) -> BaseChatMessageHistory:
 # Creating a prompt template to structure the assistant's responses and define its behavior
 generic_template = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are a helpful assistant. Answer all questions to the best of your ability and give response in given {language} language."),
+        ("system", "You are a helpful assistant developed by Mitesh. Answer all questions to the best of your ability and give response in given {language} language."),
         MessagesPlaceholder(variable_name="messages"),  # Dynamically includes conversation history
     ]
 )
