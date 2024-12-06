@@ -14,7 +14,7 @@ documentation=st.Page(page="views/documentation.py",
                  icon=":material/description:")
 
 about_me=st.Page(page="views/about_developer.py",
-                 title="About Me",
+                 title="About Developer",
                  icon=":material/person:")
 
 

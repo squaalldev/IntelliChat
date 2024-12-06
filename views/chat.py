@@ -17,12 +17,12 @@ model_dict = {
 # Setting up the sidebar for user customization options
 with st.sidebar:
     # Adding a dropdown for language selection to support multilingual capabilities
-    st.subheader("Language Options 🌐")
-    language = st.selectbox(
-        "Select Language",
-        ["English", "Hindi", "Spanish", "French", "German"],
-    )
-    st.session_state.language = language  # Storing the selected language in session state
+    with st.expander("**Language Options**",icon="🌐"):
+        language = st.selectbox(
+            "Select Model Language",
+            ["English", "Hindi", "Spanish", "French", "German"],
+        )
+        st.session_state.language = language  # Storing the selected language in session state
 
     # Adding an expandable section for model customization
     with st.expander("**Model Customization**", icon="🛠️"):
@@ -32,32 +32,15 @@ with st.sidebar:
             ["LLaMA 3.1-8B", "Gemma2 9B", "Mixtral"],
             help="Select the model type you want to use for generating responses. Each model has different strengths and use cases.",
         )
-
+        model_desc = {
+            "LLaMA 3.1-8B": "LLaMA (Large Language Model Meta AI) 3.1-8B is a versatile language model developed by Meta, featuring 8 billion parameters. It excels in a variety of natural language processing tasks such as text generation, summarization, and translation, while maintaining efficiency and reliability in performance.",
+            "Gemma2 9B": "Gemma2 is a large-scale language model with 9 billion parameters, known for its ability to generate highly coherent, contextually accurate, and nuanced text. It is suited for applications that require creative content generation, such as dialogue systems, storytelling, and more.",
+            "Mixtral": "Mixtral is a multi-modal AI model optimized for both text and image processing. This model integrates visual and textual information to enable tasks like image captioning, text-to-image generation, and interactive storytelling, offering a creative approach to AI applications."
+            }
+        
         # Displaying detailed descriptions for each model based on user selection
-        if model_type == "LLaMA 3.1-8B":
-            st.session_state.model = "LLaMA 3.1-8B"
-            st.markdown(
-                "### LLaMA 3.1-8B\n"
-                "LLaMA (Large Language Model Meta AI) is a family of large language models developed by Meta. "
-                "The 3.1-8B version has 8 billion parameters and is trained to be efficient in various natural language tasks, "
-                "including text generation, summarization, and translation."
-            )
-
-        elif model_type == "Gemma2 9B":
-            st.session_state.model = "Gemma2 9B"
-            st.markdown(
-                "### Gemma2 9B\n"
-                "Gemma2 is a powerful language model with 9 billion parameters, known for its ability to generate human-like text and perform "
-                "a wide range of tasks. It is widely used for applications that require more nuanced and contextually accurate responses."
-            )
-
-        elif model_type == "Mixtral":
-            st.session_state.model = "Mixtral"
-            st.markdown(
-                "### Mixtral\n"
-                "Mixtral is a multi-modal AI model designed for text and image generation tasks. It is optimized to handle a combination of natural language and "
-                "visual input, allowing for creative applications in areas like design, art, and interactive storytelling."
-            )
+        st.session_state.model=model_type
+        st.markdown(f"**Selected Model:** {model_type}",help=model_desc[model_type])
 
         # Adding sliders to allow fine-tuning of model parameters
         temperature = st.slider(
@@ -74,6 +57,9 @@ with st.sidebar:
             256,
             help="Controls the maximum number of tokens the model can generate in its response. Higher values allow for longer responses.",
         )
+
+print(st.session_state.model)
+print(st.session_state.language)
 
 # Displaying a greeting message based on the selected language
 greetings = {
