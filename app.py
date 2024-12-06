@@ -1,7 +1,5 @@
 import streamlit as st
 
-st.logo("assets\logo.jpg",size="large")
-
 app_page=st.Page(page="views/chat.py",
                  title="Chat",
                  icon=":material/chat:",
