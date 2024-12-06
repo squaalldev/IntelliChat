@@ -124,3 +124,5 @@ if user_input:
     st.session_state.messages.append({"role": "assistant", "content": response.content})
     with st.chat_message("assistant"):
         st.write(response.content)  # Render the assistant's response in the UI
+
+st.sidebar.page_link("pages/temp.py", label="Page 1", icon="1️⃣")
