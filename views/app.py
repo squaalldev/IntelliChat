@@ -11,6 +11,12 @@ model_dict={"LLaMA 3.1-8B":"llama-3.1-8b-instant","Gemma2 9B":"gemma2-9b-it","Mi
 
 # Setting up sidebar
 with st.sidebar:
+    st.subheader("Language Options 🌐")
+    language = st.selectbox(
+        "Select Language",
+        ["English", "Hindi","Spanish", "French", "German"]
+        )
+    st.session_state.language=language
     
     with st.expander("**Model Customization**",icon="🛠️"):
     # Sidebar for model customization
@@ -24,19 +30,24 @@ with st.sidebar:
 
         # Custom help for each model
         if model_type == "LLaMA 3.1-8B":
+            st.session_state.model="LLaMA 3.1-8B"
             st.markdown(
                 "### LLaMA 3.1-8B\n"
                 "LLaMA (Large Language Model Meta AI) is a family of large language models developed by Meta. "
                 "The 3.1-8B version has 8 billion parameters and is trained to be efficient in various natural language tasks, "
                 "including text generation, summarization, and translation."
             )
+
         elif model_type == "Gemma2 9B":
+            st.session_state.model="Gemma2 9B"
             st.markdown(
                 "### Gemma2 9B\n"
                 "Gemma2 is a powerful language model with 9 billion parameters, known for its ability to generate human-like text and perform "
                 "a wide range of tasks. It is widely used for applications that require more nuanced and contextually accurate responses."
             )
+
         elif model_type == "Mixtral":
+            st.session_state.model="Mixtral"
             st.markdown(
                 "### Mixtral\n"
                 "Mixtral is a multi-modal AI model designed for text and image generation tasks. It is optimized to handle a combination of natural language and "
@@ -59,8 +70,15 @@ with st.sidebar:
         help="Controls the maximum number of tokens the model can generate in its response. Higher values allow for longer responses."
     )
 
+greetings = {
+    "English": "Hi! How can I assist you today?",
+    "Spanish": "¡Hola! ¿Cómo puedo ayudarte hoy?",
+    "French": "Bonjour! Comment puis-je vous aider aujourd'hui?",
+    "German": "Hallo! Wie kann ich Ihnen heute helfen?",
+    "Hindi": "नमस्ते! मैं आज आपकी कैसे मदद कर सकता हूँ?",
+}
 
-selected_model=model_dict[model_type]
+selected_model=model_dict[st.session_state.model]
 
 # Initializing the language model (Llama 3.1) with streaming support for real-time responses
 model = ChatGroq(model=selected_model, api_key=os.getenv("GROQ_API_KEY"),temperature=temperature,max_tokens=max_tokens, streaming=True)
@@ -68,15 +86,16 @@ model = ChatGroq(model=selected_model, api_key=os.getenv("GROQ_API_KEY"),tempera
 # Setting up the Streamlit interface by defining the app title
 st.title("Chatbot with Persistent History")
 
+with st.chat_message(""):
+    st.write(greetings[st.session_state.language])
+
 # Initializing session state for chat history and messages to ensure conversation persistence
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = ChatMessageHistory()  # To store and manage message history within the session
 
 if "messages" not in st.session_state:
     # Adding a welcome message from the assistant at the start of the session
-    st.session_state.messages = [
-        {"role": "assistant", "content": "Hi, I'm your assistant. How can I help you today?"}
-    ]
+    st.session_state.messages = []
 
 # Defining a function to retrieve session-specific chat history for message tracking
 def get_chat_history(session_id: str) -> BaseChatMessageHistory:
@@ -87,7 +106,7 @@ def get_chat_history(session_id: str) -> BaseChatMessageHistory:
 # Creating a prompt template to define the assistant's behavior and format its responses
 generic_template = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are a helpful assistant. Answer all questions to the best of your ability."),
+        ("system", "You are a helpful assistant. Answer all questions to the best of your ability and give response in given {language} language."),
         MessagesPlaceholder(variable_name="messages"),  # Placeholder to dynamically include conversation history
     ]
 )
@@ -116,7 +135,8 @@ if user_input:
 
     # Generating the assistant's response using the chain and managing session ID
     response = with_message_history.invoke(
-        {"messages": [{"role": msg["role"], "content": msg["content"]} for msg in st.session_state.messages]},
+        {"language":st.session_state.language,
+         "messages": [{"role": msg["role"], "content": msg["content"]} for msg in st.session_state.messages]},
         config={"configurable": {"session_id": "default_session"}}  # Assigning a session ID for context tracking
     )
 
