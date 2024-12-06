@@ -97,7 +97,9 @@ model = ChatGroq(
 )
 
 # Setting up the main Streamlit interface and initializing the chatbot UI
-st.title("Chatbot with Persistent History")
+st.title("AskGenie 🤖")
+st.write("Your intelligent assistant with persistent conversation history, ready to answer your queries!")
+
 
 # Initializing session state variables for chat history and user-assistant messages
 if "chat_history" not in st.session_state:
