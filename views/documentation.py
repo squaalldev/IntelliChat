@@ -11,6 +11,7 @@ The project is built using the following technologies:
 - **Streamlit**: For creating an interactive web interface.
 - **ChatGroq**: A robust conversational AI backend.
 - **Python**: Core programming language for logic and integration.
+- **Multilingual Support**: Enables interactions in multiple languages for a global user base. 🌍
 """)
 
 # How to Use the Chatbot Section
@@ -18,12 +19,13 @@ st.header("🤖 How to Use the Chatbot")
 st.write("""
 To use the chatbot:
 1. Select the model type and customize parameters from the sidebar.
-2. Enter your query in the chat input box and get instant responses.
-3. View your conversation history directly in the chat interface.
+2. Choose your preferred language from the sidebar's **Language Options**. 🌐
+3. Enter your query in the chat input box and get instant responses in the selected language.
+4. View your conversation history directly in the chat interface.
 """)
 st.markdown("**Example Queries:**")
-st.write("- `Who is Elon Musk ?` 🚀")
-st.write("- `Explain the concept of persistent chat history.` 📚")
+st.write("- `Who is Elon Musk ?` 🚀 (English)")
+st.write("- `Persistent chat history ke baare mein samjhaaiye.` 📚 (Hindi)")
 
 # Features Section
 st.header("✨ Features")
@@ -31,7 +33,7 @@ st.write("""
 The chatbot provides the following features:
 - **Persistent Conversation History**: Maintains the flow of conversation. 🗣️
 - **Customizable Models**: Adjust parameters like temperature and max tokens. ⚙️
-- **File Upload Support**: Upload PDFs or DOCX files for document-based question answering. 📂
+- **Multilingual Support**: Communicate in languages like English, Hindi, Spanish, French, and German. 🌐
 """)
 
 # FAQs Section
@@ -40,8 +42,8 @@ st.markdown("""
 **Q: How can I reset the conversation history?**  
 A: Simply refresh the page to start a new session with an empty chat history. 🔄
 
-**Q: Can I use this chatbot for multiple types of queries?**  
-A: Yes, general knowledge, or any topic supported by the chosen model. 🌐
+**Q: Can the chatbot answer queries in multiple languages?**  
+A: Yes, you can select your preferred language from the sidebar and the chatbot will respond accordingly. 🌍
 """)
 
 # Acknowledgments Section
