@@ -13,7 +13,7 @@ documentation=st.Page(page="views/documentation.py",
                  title="Documentation",
                  icon=":material/description:")
 
-about_me=st.Page(page="views/about_me.py",
+about_me=st.Page(page="views/about_developer.py",
                  title="About Me",
                  icon=":material/person:")
 
