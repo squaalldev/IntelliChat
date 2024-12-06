@@ -11,7 +11,7 @@ model_dict={"LLaMA 3.1-8B":"llama-3.1-8b-instant","Gemma2 9B":"gemma2-9b-it","Mi
 
 # Setting up sidebar
 with st.sidebar:
-
+    
     with st.expander("**Model Customization**",icon="🛠️"):
     # Sidebar for model customization
         # Model type selection
