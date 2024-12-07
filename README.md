@@ -2,6 +2,8 @@
 
 AskGenie is a powerful, multi-language conversational AI chatbot that delivers accurate, context-aware responses. Equipped with persistent chat history and customizable model settings, AskGenie is designed to provide a seamless, user-friendly experience for general knowledge queries and more.
 
+## Deployment 🌍
+AskGenie can be deployed on **Streamlit** or **Hugging Face** for an intuitive and scalable user interface.
 
 
 ## Features 🚀
@@ -13,12 +15,6 @@ AskGenie is a powerful, multi-language conversational AI chatbot that delivers a
   - **Mixtral**: Multi-modal capabilities for creative applications.
 - **Adjustable Parameters**: Fine-tune temperature and max tokens to control output creativity and length.
 - **Real-Time LangChain Tracing**: Enhanced debugging and performance optimization.
-
-
-
-## Deployment 🌍
-AskGenie can be deployed on **Streamlit** or **Hugging Face** for an intuitive and scalable user interface.
-
 
 
 ## Configuration 🛠️
@@ -85,9 +81,8 @@ API keys are securely stored as **GitHub Repository Secrets** or in `.env` files
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or feature suggestions.
 
 
-
-## License 📜 
-This project is licensed under the **MIT License**.
+## License 📝
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/miteshgupta07/Capt-Image/blob/main/LICENSE) file for details.
 
 
 
@@ -95,3 +90,6 @@ This project is licensed under the **MIT License**.
 - **LangChain**: For robust history and prompt management.
 - **Groq Models**: For providing state-of-the-art conversational AI capabilities.
 - **Streamlit Community**: For helpful resources and support.
+
+## Contact
+For inquiries or collaborations, please contact me at miteshgupta2711@gmail.com.
