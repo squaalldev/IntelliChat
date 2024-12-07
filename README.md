@@ -69,7 +69,7 @@ AskGenie supports five languages:
 
 
 ## Security 🛡️ 
-- API keys are securely stored as **GitHub Repository Secrets** or in `.env` files for local development.
+API keys are securely stored as **GitHub Repository Secrets** or in `.env` files for local development.
 
 
 
