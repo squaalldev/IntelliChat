@@ -6,6 +6,11 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# Setting Up Langchain Tracing
+os.environ['LANGCHAIN_TRACING_V2']="true"
 
 # Defining a dictionary to map model names to their identifiers for API calls
 model_dict = {
@@ -57,9 +62,6 @@ with st.sidebar:
             256,
             help="Controls the maximum number of tokens the model can generate in its response. Higher values allow for longer responses.",
         )
-
-print(st.session_state.model)
-print(st.session_state.language)
 
 # Displaying a greeting message based on the selected language
 greetings = {
