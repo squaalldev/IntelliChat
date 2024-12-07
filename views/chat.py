@@ -85,7 +85,7 @@ model = ChatGroq(
 )
 
 # Setting up the main Streamlit interface and initializing the chatbot UI
-st.title("AskGenie 🤖")
+st.title("IntelliChat 🤖")
 st.write("Your intelligent assistant developed by Mitesh😎, ready to answer your queries!")
 
 
