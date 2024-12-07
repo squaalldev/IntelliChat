@@ -3,7 +3,7 @@
 IntelliChat is a powerful, multi-language conversational AI chatbot that delivers accurate, context-aware responses. Equipped with persistent chat history and customizable model settings, IntelliChat is designed to provide a seamless, user-friendly experience for general knowledge queries and more.
 
 ## Deployment 🌍
-IntelliChat can be deployed on **Streamlit** or **Hugging Face** for an intuitive and scalable user interface.
+IntelliChat can be deployed on [**Streamlit**](https://intellichat-chatbot.streamlit.app/) for an intuitive and scalable user interface.
 
 
 ## Features 🚀
