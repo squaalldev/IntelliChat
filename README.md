@@ -1,9 +1,9 @@
-# AskGenie: Conversational AI Chatbot with Persistent History 🤖
+# IntelliChat: Conversational AI Chatbot with Persistent History 🤖
 
-AskGenie is a powerful, multi-language conversational AI chatbot that delivers accurate, context-aware responses. Equipped with persistent chat history and customizable model settings, AskGenie is designed to provide a seamless, user-friendly experience for general knowledge queries and more.
+IntelliChat is a powerful, multi-language conversational AI chatbot that delivers accurate, context-aware responses. Equipped with persistent chat history and customizable model settings, IntelliChat is designed to provide a seamless, user-friendly experience for general knowledge queries and more.
 
 ## Deployment 🌍
-AskGenie can be deployed on **Streamlit** or **Hugging Face** for an intuitive and scalable user interface.
+IntelliChat can be deployed on **Streamlit** or **Hugging Face** for an intuitive and scalable user interface.
 
 
 ## Features 🚀
@@ -38,7 +38,7 @@ AskGenie can be deployed on **Streamlit** or **Hugging Face** for an intuitive a
 
 
 ## Multi-Language Support 🌐
-AskGenie supports five languages:
+IntelliChat supports five languages:
 - **English**
 - **Spanish**
 - **French**
@@ -50,8 +50,8 @@ AskGenie supports five languages:
 ## Usage Guide 📚
 1. Clone the repository:
    ```bash
-   git clone https://github.com/miteshgupta07/AskGenie.git
-   cd AskGenie
+   git clone https://github.com/miteshgupta07/IntelliChat.git
+   cd IntelliChat
 2. Install Dependencies
    ```bash
    pip install -r requirements.txt
